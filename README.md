@@ -1,2 +1,0 @@
-# TodoApp
-MERN Stack TodoApp
