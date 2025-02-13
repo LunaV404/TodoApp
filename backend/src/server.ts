@@ -1,18 +1,25 @@
-import * as fs from 'fs';
-import express from 'express';
-import dotenv from 'dotenv'
 import mongoose from 'mongoose';
-import { connectDB } from './lib/db';
-dotenv.config()
+import express from 'express';
+import env from './utils/validateenv'
+import dotenv from 'dotenv';
+import path from 'path';
 
-export const app = express();
-
-app.get('/', (req, res) => {
-    res.send('Hello, Express!');
-});
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 
-app.listen(3000, () => {
-    console.log('Server launched http://localhost:3000');
-    connectDB();
+const app = express();
+const port = env.PORT || 5000;
+const mongoUri = env.MONGODB_URI_STRING
+
+mongoose.connect(mongoUri)
+    .then(() => {
+        console.log("MongoDB Connecté !");
+        app.listen(port, () => {
+            console.log(`Serveur démarré sur http://localhost:${port}`);
+        });
+    })
+    .catch(err => console.error("Erreur de connexion MongoDB :", err));
+
+app.get("/", (req, res) => {
+    res.send("Hello World!");
 });

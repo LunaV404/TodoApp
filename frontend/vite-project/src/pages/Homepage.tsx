@@ -43,6 +43,14 @@ const Homepage = () => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
+  const toggleComplete = (id: number) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
   return (
     <div className={style.bg}>
       <Navbar />
@@ -60,7 +68,7 @@ const Homepage = () => {
         </form>
         <ul>
           {todos.map((todo) => (
-            <Todo key={todo.id} todo={todo} deleteTodo={handleDelete} />
+            <Todo key={todo.id} todo={todo} deleteTodo={handleDelete} toggleComplete={toggleComplete} />
           ))}
         </ul>
         <p className={style.todoCount}>You have {todos.length} todos</p>

@@ -1,3 +1,4 @@
+
 import { FaRegTrashAlt } from "react-icons/fa";
 
 const style = {
@@ -12,13 +13,21 @@ const style = {
 interface TodoProps {
   todo: { id: number; todo: string; completed: boolean };
   deleteTodo: (id: number) => void;
+  toggleComplete: (id: number) => void; // Ajout ici
 }
 
-const Todo: React.FC<TodoProps> = ({ todo, deleteTodo }) => {
+const Todo: React.FC<TodoProps> = ({ todo, deleteTodo, toggleComplete }) => {
   return (
     <li className={style.todo}>
       <div className={style.row}>
-        <p className={todo.completed ? style.completed : style.text}>{todo.todo}</p>
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => toggleComplete(todo.id)}
+        />
+        <p className={todo.completed ? style.completed : style.text}>
+          {todo.todo}
+        </p>
       </div>
       <button className={style.button} onClick={() => deleteTodo(todo.id)}>
         <FaRegTrashAlt />
