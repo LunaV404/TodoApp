@@ -1,13 +1,7 @@
 import mongoose from 'mongoose';
-import express from 'express';
 import env from './utils/validateenv'
-import dotenv from 'dotenv';
-import path from 'path';
+import app from './app';
 
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
-
-const app = express();
 const port = env.PORT || 5000;
 const mongoUri = env.MONGODB_URI_STRING
 
@@ -19,7 +13,3 @@ mongoose.connect(mongoUri)
         });
     })
     .catch(err => console.error("Erreur de connexion MongoDB :", err));
-
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});

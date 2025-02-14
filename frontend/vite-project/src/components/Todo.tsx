@@ -17,6 +17,7 @@ interface TodoProps {
 }
 
 const Todo: React.FC<TodoProps> = ({ todo, deleteTodo, toggleComplete }) => {
+
   return (
     <li className={style.todo}>
       <div className={style.row}>
@@ -29,6 +30,7 @@ const Todo: React.FC<TodoProps> = ({ todo, deleteTodo, toggleComplete }) => {
           {todo.todo}
         </p>
       </div>
+      <p className="border-l border-black pl-4 text-md">Created at 13/07/2025 </p>
       <button className={style.button} onClick={() => deleteTodo(todo.id)}>
         <FaRegTrashAlt />
       </button>
